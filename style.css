@@ -1,0 +1,26 @@
+.navbar-custom
+{
+    background-color: black;
+}
+.brand
+{
+    color: #32cd30
+}
+.brand:hover
+{    
+    color: #ecf87f
+    
+}
+.tab
+{
+    color: #32cd30
+}
+.home.active
+{
+    color: white;
+}
+.tab:hover
+{
+    color:#ecf87f
+    
+}

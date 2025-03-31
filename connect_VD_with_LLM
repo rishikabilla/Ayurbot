@@ -1,0 +1,55 @@
+import faiss
+import pickle
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from langchain.llms import Ollama  # Use Ollama instead of OpenAI
+
+# --------------- CONFIG ---------------- #
+DB_PATH = "vector_database"
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+LLM_MODEL = "mistral"  # Ollama model
+
+# Load embedding model
+model = SentenceTransformer(EMBEDDING_MODEL)
+
+# Load FAISS Index
+def load_faiss_index():
+    index = faiss.read_index(f"{DB_PATH}/faiss_index")
+    with open(f"{DB_PATH}/metadata.pkl", "rb") as f:
+        metadata = pickle.load(f)
+    return index, metadata
+
+# RAG Search Function
+def search_faiss_rag(query, top_k=5):
+    index, metadata = load_faiss_index()
+    query_embedding = model.encode([query]).astype("float32")
+    
+    # FAISS Search
+    D, I = index.search(query_embedding, top_k)
+    
+    retrieved_texts = []
+    for idx in I[0]:
+        if idx != -1:
+            retrieved_texts.append(metadata[idx])  # Extract matching text
+
+    return retrieved_texts
+
+# Load Ollama's Mistral Model
+def load_llm():
+    return Ollama(model=LLM_MODEL)
+
+# Generate Response with RAG
+def generate_rag_response(query):
+    retrieved_texts = search_faiss_rag(query)
+    context = "\n\n".join(retrieved_texts)  # Merge top results
+
+    llm = load_llm()
+    response = llm.invoke(f"Context: {context}\n\nQuestion: {query}")
+    
+    return response
+
+# --------------- TEST THE RAG SYSTEM ---------------- #
+query = "Best home remedies for digestion problems"
+response = generate_rag_response(query)
+
+print("\n💡 **Ayurbot's Answer:**\n", response)
