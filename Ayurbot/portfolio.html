@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurbot - Dosha Quiz</title>
+</head>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+body
+{
+    background-color: rgb(27, 27, 27);
+}
+.navbar {
+    padding: 20px;
+    top: 0;
+    position: sticky;
+    background-color: rgb(59, 56, 56);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid greenyellow;
+    z-index: 1000;
+}
+.left
+{
+    text-decoration: none;
+    color: greenyellow;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: color 0.3s ease; 
+}
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px;
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: greenyellow;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: color 0.3s ease;
+}
+
+.navbar li a:hover {
+    color: yellowgreen;
+}
+.title 
+{
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 40px;
+    color: greenyellow;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+.content {
+    margin: 40px auto;
+    width: 70%;
+    font-size: 1.2em;
+    line-height: 1.8;
+    background-color: rgba(59, 56, 56, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid greenyellow;
+    color: white;
+}
+
+.start-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.start-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1.3em;
+    font-family: monospace;
+    color: black;
+    background-color: greenyellow;
+    border: 2px solid greenyellow;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+    color: white;
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <ul class="left">
+            <li><strong>Ayurbot</strong></li>
+        </ul>
+        <ul class="right">
+            <li><a href="/">Portfolio</a></li>
+            <li><a href="/quiz">Dosha Quiz</a></li>
+            <li><a href="/chat">Chat</a></li>
+        </ul>
+    </nav>
+    
+
+    <div class="main-container">
+        <h1 class="title">Ayurbot - Ayurvedic Based Chatbot</h1>
+    
+        <div class="content">
+            Our Ayurbot has been trained using the trusted wisdom from the following Ayurvedic resources:
+            <ul>
+                <li><em>The Complete Book of Ayurvedic Home Remedies</em> by Dr. Vasant Lad</li>
+                <li><em>Charaka Samhita</em>by Acharya Charaka and Acharya Dridhabala</li>
+                <li><em>The Everyday Ayurveda Cookbook</em> by Kate O'Donnell </li>
+            </ul>
+            You can confidently rely on Ayurbot for natural remedies, dosha-based recommendations, and wellness guidance rooted in traditional Ayurveda.<br><br>
+            <strong>Note:</strong> While Ayurbot provides valuable insights, in certain cases it's important to consult a certified Ayurvedic doctor for professional diagnosis and treatment.
+        </div>
+    
+        <div class="start-container">
+            <a href="/quiz" class="start-button">Start by Determining Your Dosha</a>
+        </div>
+    </div>
+    
+</body>
+</html>
+</body>
+</html>

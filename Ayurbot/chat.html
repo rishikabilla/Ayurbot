@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ayurbot - Chat</title>
+</head>
+<style>
+    body, html {
+    height: 100%;
+    margin: 0;
+}
+body
+{
+    background-color: rgb(27, 27, 27);
+}
+.navbar {
+    padding: 20px;
+    top: 0;
+    position: sticky;
+    background-color: rgb(59, 56, 56);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid greenyellow;
+    z-index: 1000;
+}
+.left
+{
+    text-decoration: none;
+    color: greenyellow;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: color 0.3s ease; 
+}
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px;
+}
+.navbar li a {
+    text-decoration: none;
+    color: greenyellow;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: color 0.3s ease;
+}
+.navbar li a:hover {
+    color: yellowgreen;
+}
+.head
+{
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.8em;
+}
+.dosha
+{
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    color: greenyellow;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+}
+.chat-box {
+    background-color: rgb(40, 40, 40);
+    border: 1px solid greenyellow;
+    border-radius: 10px;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    color: white;
+    font-family: monospace;
+    font-size: 1.1em;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.chat-box p {
+    margin: 10px 0;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+form input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    font-size: 1em;
+    font-family: monospace;
+    border: 1px solid greenyellow;
+    border-radius: 8px 0 0 8px;
+    background-color: rgb(59, 56, 56);
+    color: white;
+    outline: none;
+}
+
+form button {
+    padding: 12px 20px;
+    font-size: 1em;
+    font-family: monospace;
+    background-color: greenyellow;
+    color: black;
+    border: 1px solid greenyellow;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+    color: white;
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <ul class="left">
+            <li><strong>Ayurbot</strong></li>
+        </ul>
+        <ul class="right">
+            <li><a href="/">Portfolio</a></li>
+            <li><a href="/quiz">Dosha Quiz</a></li>
+            <li><a href="/chat">Chat</a></li>
+        </ul>
+    </nav>
+    <h1 class="head">Ask Ayurbot</h1>
+    <p class="dosha"><strong>Your Dosha</strong><span style="color:white" > {{ dosha }}</span></p>
+    <div class="chat-box">
+        {% for sender, msg in messages %}
+            <p><strong>{{ sender }}:</strong> {{ msg }}</p>
+        {% endfor %}
+    </div>
+    <form method="post">
+        <input type="text" name="message" required placeholder="Type your question here...">
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>

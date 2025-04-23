@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurbot - Dosha Quiz</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            background-color: rgb(27, 27, 27);
+        }
+        .head {
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: center;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.8em;
+        }
+        .head:hover {
+            color: yellowgreen;
+        }
+        .quizbox {
+            margin-top: 6%;
+            margin-left: 12%;
+            margin-right: 12%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: greenyellow;
+            border: 1px solid greenyellow;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .question-block {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .question-block.active {
+            display: flex;
+        }
+        .question {
+            font-family: system-ui, sans-serif;
+            font-weight: 400;
+            font-size: 2em;
+            text-align: center;
+        }
+        .opt {
+            font-family: monospace;
+            font-size: 1.8em;
+        }
+        .next {
+            background-color: rgb(59, 56, 56);
+            color: greenyellow;
+            border: 1px solid greenyellow;
+            width: 100px;
+            border-radius: 6px;
+            padding: 5px;
+            font-size: 1.3em;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .next:hover {
+            background-color: greenyellow;
+            color: black;
+        }
+        .navbar {
+            padding: 20px;
+            top: 0;
+            position: sticky;
+            background-color: rgb(59, 56, 56);
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid greenyellow;
+            z-index: 1000;
+        }
+        .left {
+            text-decoration: none;
+            color: greenyellow;
+            font-size: 1.5em;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 40px;
+        }
+        .navbar li a {
+            text-decoration: none;
+            color: greenyellow;
+            font-size: 1.2em;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: color 0.3s ease;
+        }
+        .navbar li a:hover {
+            color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="left">
+            <li><strong>Ayurbot</strong></li>
+        </ul>
+        <ul class="right">
+            <li><a href="/">Portfolio</a></li>
+            <li><a href="/quiz">Dosha Quiz</a></li>
+            <li><a href="/chat">Chat</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="head">Let's Begin with finding your Dosha</h1>
+
+    <form class="quizbox" method="post" id="quizForm">
+        {% for i in range(5) %}
+        <div class="question-block {% if i == 0 %}active{% endif %}">
+            <p class="question">{{ questions[i] }}</p>
+            <label class="opt"><input type="radio" name="q{{ i+1 }}" value="a" required> {{ options[i][0] }}</label><br>
+            <label class="opt"><input type="radio" name="q{{ i+1 }}" value="b"> {{ options[i][1] }}</label><br>
+            <label class="opt"><input type="radio" name="q{{ i+1 }}" value="c"> {{ options[i][2] }}</label><br>
+            <button type="button" class="next" onclick="nextQuestion({{ i }})">{{ 'Submit' if i == 4 else 'Next' }}</button>
+        </div>
+        {% endfor %}
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const blocks = document.querySelectorAll('.question-block');
+
+            window.nextQuestion = function(index) {
+                const currentBlock = blocks[index];
+                const radios = currentBlock.querySelectorAll('input[type="radio"]');
+                let selected = false;
+                radios.forEach(r => { if (r.checked) selected = true; });
+
+                if (!selected) {
+                    alert("Please select an option before continuing.");
+                    return;
+                }
+
+                currentBlock.classList.remove('active');
+
+                if (index + 1 < blocks.length) {
+                    blocks[index + 1].classList.add('active');
+                } else {
+                    console.log("Submitting form...");
+                    document.getElementById('quizForm').submit();
+                }
+            };
+        });
+    </script>
+</body>
+</html>
